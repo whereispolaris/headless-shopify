@@ -1,3 +1,22 @@
+# Headless Shopify
+
+### Store URL
+https://headless-santi.myshopify.com/
+
+### Resources
+
+- https://shopify.github.io/js-buy-sdk/
+- https://extend.udemy.com/course/build-a-custom-shopify-storefront-using-react-headless-cms/learn/lecture/19469902#overview
+
+
+
+
+
+
+
+
+
+---
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
