@@ -38,7 +38,7 @@ export class ShopProvider extends Component {
         this.setState({ checkout: checkout });
     };
 
-    fetchCheckout = async (checkoutId) => {
+    fetchCheckout = (checkoutId) => {
         // Fetches checkout
         client.checkout
             .fetch(checkoutId)
@@ -75,9 +75,24 @@ export class ShopProvider extends Component {
     openMenu = () => { };
 
     render() {
-        console.log(this.state.checkout);
 
-        return <ShopContext.Provider>{this.props.children}</ShopContext.Provider>;
+        return (
+            <ShopContext.Provider
+                // Allows all functions to be called from other components 
+                value={{
+                    ...this.state,
+                    fetchAllProducts: this.fetchAllProducts,
+                    fetchProductWithHandle: this.fetchProductWithHandle,
+                    addItemtoCheckout: this.addItemtoCheckout,
+                    removeLineItem: this.removeLineItem,
+                    closeCart: this.closeCart,
+                    openCart: this.openCart,
+                    closeMenu: this.closeMenu,
+                    openMenu: this.openMenu
+                }}>
+                {this.props.children}
+            </ShopContext.Provider>
+        )
     }
 }
 
