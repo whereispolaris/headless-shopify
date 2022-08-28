@@ -13,8 +13,6 @@ const Home = () => {
         fetchAllProducts();
     }, [fetchAllProducts])
 
-    console.log("products: ", products);
-
     // Return loading message if no products are availables
     if (!products) return <div>Loading...</div>
 
