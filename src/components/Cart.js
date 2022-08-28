@@ -9,12 +9,20 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    Button
+    Button,
+    Grid,
+    Text,
+    Flex,
+    Image,
+    Link
 } from '@chakra-ui/react'
+import { CloseIcon } from '@chakra-ui/icons'
 
 const Cart = () => {
 
     const { isCartOpen, closeCart, checkout, removeLineItem } = useContext(ShopContext)
+
+    console.log("checkout: ", checkout);
 
     return (
         <>
@@ -29,11 +37,28 @@ const Cart = () => {
                     <DrawerHeader>Your Shopping Cart</DrawerHeader>
 
                     <DrawerBody>
-                        This is your cart
+                        {
+                            checkout.lineItems && checkout.lineItems.map(item => (
+                                <Grid templateColumns="repeat(4, 1fr)" gap={1} key={item.id}>
+                                    <Flex alignItems="center" justifyContent="center">
+                                        <CloseIcon cursor="pointer" onClick={() => removeLineItem(item.id)} />
+                                    </Flex>
+                                    <Flex alignItems="center" justifyContent="center">
+                                        <Image src={item.variant.image.src} />
+                                    </Flex>
+                                    <Flex alignItems="center" justifyContent="center">
+                                        <Text>{item.title}</Text>
+                                    </Flex>
+                                    <Flex alignItems="center" justifyContent="center">
+                                        <Text>{item.variant.price}</Text>
+                                    </Flex>
+                                </Grid>
+                            ))
+                        }
                     </DrawerBody>
 
                     <DrawerFooter>
-                        <Button colorScheme='blue'>Checkout</Button>
+                        <Button colorScheme='blue' w='100%'><Link href={checkout.webUrl}>Checkout</Link></Button>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
