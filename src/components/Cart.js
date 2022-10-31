@@ -12,9 +12,10 @@ import {
     Button,
     Grid,
     Text,
+    Box,
     Flex,
     Image,
-    Link
+    Link,
 } from '@chakra-ui/react'
 import { CloseIcon } from '@chakra-ui/icons'
 
@@ -38,7 +39,7 @@ const Cart = () => {
 
                     <DrawerBody>
                         {
-                            checkout.lineItems && checkout.lineItems.map(item => (
+                            checkout.lineItems?.length ? checkout.lineItems.map(item => (
                                 <Grid templateColumns="repeat(4, 1fr)" gap={1} key={item.id}>
                                     <Flex alignItems="center" justifyContent="center">
                                         <CloseIcon cursor="pointer" onClick={() => removeLineItem(item.id)} />
@@ -53,13 +54,20 @@ const Cart = () => {
                                         <Text>{item.variant.price}</Text>
                                     </Flex>
                                 </Grid>
-                            ))
+                            )) :
+                            <Box h="100%" w="100%">
+                                <Text h="100%" w="100%" display="flex" flexDir="column" alignItems="center" justifyContent="center">
+                                   Your Cart Is Empty!
+                                </Text>
+                            </Box>
                         }
                     </DrawerBody>
 
+                    { checkout.lineItems?.length ?
                     <DrawerFooter>
                         <Button colorScheme='blue' w='100%'><Link href={checkout.webUrl}>Checkout</Link></Button>
-                    </DrawerFooter>
+                    </DrawerFooter> : null
+                    }
                 </DrawerContent>
             </Drawer>
         </>
