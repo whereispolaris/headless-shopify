@@ -23,8 +23,6 @@ const Cart = () => {
 
     const { isCartOpen, closeCart, checkout, removeLineItem } = useContext(ShopContext)
 
-    console.log("checkout: ", checkout);
-
     return (
         <>
             <Drawer
