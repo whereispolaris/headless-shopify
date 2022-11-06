@@ -29,6 +29,7 @@ const Cart = () => {
                 isOpen={isCartOpen}
                 placement='right'
                 onClose={closeCart}
+                size="sm"
             >
                 <DrawerOverlay />
                 <DrawerContent>
