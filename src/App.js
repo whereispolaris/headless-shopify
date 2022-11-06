@@ -5,6 +5,8 @@ import NavBar from "./components/NavBar";
 import ProductPage from "./pages/ProductPage";
 import Cart from "./components/Cart";
 import NavMenu from "./components/NavMenu";
+import Footer from "./components/Footer";
+
 
 function App() {
   return (
@@ -21,7 +23,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
-        <p>Footer</p>
+        <Footer/>
       </Router>
     </div>
   );
