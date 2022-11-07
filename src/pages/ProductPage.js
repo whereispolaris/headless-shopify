@@ -26,17 +26,24 @@ const ProductPage = () => {
                 <Flex justifyContent="center" alignItems="center">
                     <Image src={product.images[0].src} />
                 </Flex>
-                <Box>
-                    <Heading pd="2rem">{product.title}</Heading>
-                    <Text>{product.variants[0].price}</Text>
-                    <Text>{product.description}</Text>
+                <Flex flexDir="column" alignItems="center" justifyContent="center" px="2rem">
+                    <Heading pb="2rem">{product.title}</Heading>
+                    <Text fontWeight="bold" pb="2rem">{product.variants[0].price}</Text>
+                    <Text pb="2rem" color="gray.500">{product.description}</Text>
                     {/*Extend - Renders offers on product page*/}
-                    <ExtendOffers/>
+                    <Box width="100%" pb="1rem">
+                        <ExtendOffers/>
+                    </Box>
+
                     <Button
                         className="add-to-cart"
                         onClick={() => addItemToCheckout(product.variants[0].id, 1)}
+                        _hover={{opacity : '70%'}}
+                        width="50%"
+                        backgroundColor="#090637"
+                        color="white"
                     >Add To Cart</Button>
-                </Box>
+                </Flex>
             </Grid>
         </Box>
     )
