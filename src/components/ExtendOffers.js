@@ -9,9 +9,11 @@ const client = Client.buildClient({
     storefrontAccessToken: process.env.REACT_APP_SHOPIFY_API,
 });
 
-const ExtendOffers = () => {
+window.client = client
 
-    const [variantId, setvariantId] = useState();
+const ExtendOffers = ({variantId}) => {
+
+    // const [variantId, setvariantId] = useState();
 
     // Grabs the path from the URL
     const { handle } = useParams();
@@ -26,8 +28,7 @@ const ExtendOffers = () => {
 
         // Todo : If product.variants > 1 add event listener to check for option changes
 
-        // get the product variant
-        setvariantId( productId.replace("gid://shopify/ProductVariant/", "") )
+        const variantId = productId.replace("gid://shopify/ProductVariant/", "")
 
         const extendDiv = document.querySelector('.extend-offer')
         const component = Extend.buttons.instance('.extend-offer')
