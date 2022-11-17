@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/headless-shopify/static/css/main.bd7f6290.css",
+    "main.js": "/headless-shopify/static/js/main.18270370.js",
+    "static/js/787.e32378f3.chunk.js": "/headless-shopify/static/js/787.e32378f3.chunk.js",
+    "static/media/headless.png": "/headless-shopify/static/media/headless.a53c1516a479460eb42b.png",
+    "static/media/department-store.jpeg": "/headless-shopify/static/media/department-store.427d79fa83e69b1f76e9.jpeg",
+    "index.html": "/headless-shopify/index.html",
+    "main.bd7f6290.css.map": "/headless-shopify/static/css/main.bd7f6290.css.map",
+    "main.18270370.js.map": "/headless-shopify/static/js/main.18270370.js.map",
+    "787.e32378f3.chunk.js.map": "/headless-shopify/static/js/787.e32378f3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd7f6290.css",
+    "static/js/main.18270370.js"
+  ]
+}
