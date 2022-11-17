@@ -16,6 +16,8 @@ export class ShopProvider extends Component {
         checkout: {},
         isCartOpen: false,
         isMenuOpen: false,
+        planAdded: false,
+        planToAdd: {},
     };
 
     // Get the checkout when the app loads
@@ -48,18 +50,6 @@ export class ShopProvider extends Component {
             });
     };
 
-    addItemtoCheckout = async (variantId, quantity) => {
-        const lineItemsToAdd = [
-            {
-                variantId,
-                quantity: parseInt(quantity, 10)
-            }
-        ]
-        const checkout = await client.checkout.addLineItems(this.state.checkout.id, lineItemsToAdd);
-        this.setState({ checkout: checkout })
-        this.openCart()
-    };
-
     removeLineItem = async (lineItemIdsToRemove) => {
         // Remove an item from the checkout
         const checkout = await client.checkout.removeLineItems(this.state.checkout.id, lineItemIdsToRemove)
@@ -80,6 +70,60 @@ export class ShopProvider extends Component {
         this.setState({ product: product });
     };
 
+    addExtendPlanToCart = async () => {
+        this.setState({planAdded : false})
+        const component = Extend.buttons.instance(".extend-offer");
+        const plan = component.getPlanSelection();
+        // component.getActiveProduct() - If the Extend warranty offers are rendering, this should be the product the warranty offer is rendering for
+        const product = component.getActiveProduct();
+        if (plan) {
+            this.setState({planAdded : true})
+            const planPriceDollar = plan.price / 100
+            const warrantyHandle = `extend-protection-plans-${planPriceDollar <= 49.99 ? '1' : planPriceDollar <= 4999.00 ? '2' : '3' }`
+            const extendProducts = await client.product.fetchByHandle(warrantyHandle);
+            let planData = {}
+            await extendProducts.variants.forEach(variant => {
+                const skuPrice = variant.sku.replace("Extend-Protection-Plan-", "")
+                if (skuPrice == planPriceDollar) {
+                    const extendBool = true
+                     planData  = {
+                        variantId: variant.id,
+                            quantity: 1,
+                            customAttributes: [
+                            {key: "Extend.IsExtendWarranty", value: "true"},
+                            {key: "Product", value: product.name},
+                            {key: "Term", value: `${plan.term / 12} years`},
+                            {key: "_Extend.IsPricePoint", value: "true"},
+                            {key: "_Extend.PlanId", value: plan.planId},
+                            {key: "_Extend.ProductId", value: product.id},
+                        ]
+                    }
+                }
+            })
+            const lineItemsToAdd = [
+                planData
+            ]
+
+            await client.checkout.addLineItems(this.state.checkout.id, lineItemsToAdd);
+        }
+    }
+
+    addItemtoCheckout = async (variantId, quantity) => {
+        const lineItemsToAdd = [
+            {
+                variantId,
+                quantity: parseInt(quantity, 10)
+            }
+        ]
+
+        await this.addExtendPlanToCart()
+        const checkout = await client.checkout.addLineItems(this.state.checkout.id, lineItemsToAdd);
+        await this.setState({ checkout: checkout })
+        await this.openCart()
+
+    };
+
+
     closeCart = () => { this.setState({ isCartOpen: false }) };
 
     openCart = () => { this.setState({ isCartOpen: true }) };
@@ -98,6 +142,7 @@ export class ShopProvider extends Component {
                     fetchAllProducts: this.fetchAllProducts,
                     fetchProductWithHandle: this.fetchProductWithHandle,
                     addItemToCheckout: this.addItemtoCheckout,
+                    addExtendPlanToCart: this.addExtendPlanToCart,
                     removeLineItem: this.removeLineItem,
                     closeCart: this.closeCart,
                     openCart: this.openCart,
