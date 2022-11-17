@@ -9,13 +9,14 @@ const Hero = () => {
             {/*h="100%" m="auto" objectFit="stretch" objectPosition={["top", "center"]}*/}
             {/*/>*/}
             <Text
-            position="absolute"
-            bottom="40%"
-            w="100%"
-            textAlign="center"
-            color="white"
-            fontWeight="bold"
-            fontSize="4rem"
+                className="text-focus-in"
+                position="absolute"
+                bottom="40%"
+                w="100%"
+                textAlign="center"
+                color="white"
+                fontWeight="bold"
+                fontSize="4rem"
             >Everything On Sale</Text>
             <Center>
                 <Button
