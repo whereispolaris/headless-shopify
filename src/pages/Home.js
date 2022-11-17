@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ShopContext } from '../context/shopContext'
 import { Box, Grid, Text, Image } from '@chakra-ui/react'
 import Hero from "../components/Hero";
+import ImageWithText from "../components/ImageWithText";
 
 const Home = () => {
 
@@ -35,6 +36,17 @@ const Home = () => {
                     ))
                 }
             </Grid>
+            <ImageWithText
+                reverse
+                image="https://picsum.photos/seed/picsum/900/900"
+                heading="Peace of Mind"
+                text="Enjoy the products you love with the protection you need"
+            />
+            <ImageWithText
+                image="https://picsum.photos/id/33/900/900"
+                heading="Get Out There"
+                text="The great outdoors awaits"
+            />
         </Box>
     )
 }
